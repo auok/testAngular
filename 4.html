@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>angular.js</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="js/angular.min.js"></script>
+</head>
+<body>
+    <div ng-controller="Aaa">
+    	{{ txt }}
+    </div>
+	<div ng-controller="Bbb">
+		{{  txt }}
+	</div>
+	<script>
+
+		var m1 = angular.module('myApp',[]);
+		
+		m1.controller('Aaa',['$scope',function($scope){
+
+			$scope.txt="我是作用域A得值";
+
+		}]);
+
+		m1.controller('Bbb',['$scope',function($scope){
+
+			$scope.txt="我是作用域B得值";
+
+		}]);
+	</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>angular.js</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/angular.min.js"></script>
+<style>
+	.active{ color:red; }
+	.active2{ color:blue; }
+</style> 
+</head>
+<body>
+    <div ng-controller="Aaa">
+    	<input type="checkbox" ng-model="aaa">
+    	<select name="" id="">
+			<option value="">11111</option>
+			<option value="" ng-selected="aaa">22222</option>
+    	</select>
+    	<div>
+			改变事件:<input type="text" ng-change="bbb='hello'" ng-model="bbb">
+			{{bbb}}
+    	</div>
+    	<div>
+    	复制时间:<input type="text" value="aaaaaaa" ng-copy="ccc=true">{{ccc}}
+    	</div>
+    	<div>
+    	粘贴时间:<input type="text" value="aasdassssssss" ng-paste="ddd=true">{{ddd}}
+    	</div>
+    	<div>
+    	剪切事件:<input type="text" value="aasdassssssss" ng-cut="eee=true">{{eee}}
+    	</div>
+    	<div>
+			禁用:<input type="button" ng-value="text" ng-disabled="fff">
+    	</div>
+    	<div>
+			禁用:<input type="text" ng-value="text" ng-readonly="fff">
+    	</div>
+    	<div>
+			禁用:<input type="checkbox"  ng-checked="fff">
+    	</div>
+    </div>
+	<script>
+		var m1 = angular.module('myApp',[]);
+
+		m1.controller('Aaa',['$scope','$interval',function($scope,$interval){
+				
+			var times = 5;
+			$scope.fff = true; 
+			$scope.text = times +'秒';
+			var stop = $interval(function(){
+				times = times-1;
+				$scope.text = times +'秒';
+				
+				if( times <= 0 ){
+					$scope.text = '点我';
+					$scope.fff = false; 
+					$interval.cancel(stop);
+				}
+			},1000);
+
+		}]);
+
+	</script>
+</body>
+</html>

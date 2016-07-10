@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>angular.js</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="js/angular.min.js"></script>
+</head>
+<body>
+    <div ng-controller="Aaa">
+    	<p>价格:<input type="text" value="{{iphone.money}}" readonly="readonly"></p>
+	    <p>个数:<input type="text" ng-model="iphone.num" ng-keyup="freFn()">库存{{iphone.total-iphone.num}}</p>
+	    <p>费用:<span>{{ sum() | currency:'￥' }}</span></p>
+	    <p>运费:<span>{{iphone.fre | currency:'￥'}}</span></p>
+	    <p>总额:<span>{{ sum() + iphone.fre | currency:'￥'}}</span></p>
+    </div>
+	<script>
+
+		var m1 = angular.module('myApp',[]);
+		
+		m1.controller('Aaa',['$scope',function($scope){
+
+			$scope.iphone = {
+				money : 200,
+				num   : 1,
+				fre   : 10,
+				total : 20
+			}
+
+			$scope.sum = function(){
+				return $scope.iphone.money*$scope.iphone.num
+			}
+
+			$scope.freFn = function(){
+
+				if(!isNaN($scope.iphone.num)){
+
+					if( $scope.iphone.num >= $scope.iphone.total ){
+						$scope.iphone.num = $scope.iphone.total;
+					}
+					if( $scope.iphone.num < 0 ){
+						$scope.iphone.num = 1;
+					}
+
+				}else{
+					$scope.iphone.num = 1;
+				}
+			}
+			//监听值的变化;
+			$scope.$watch($scope.sum,function( newVal,oldVal ){
+
+				console.log(newVal); //最新的结果值;
+				console.log(oldVal); //上一次的结果值;
+
+				$scope.iphone.fre = newVal > 600 ? 0 : 10 ;
+				
+			});
+
+		}]);
+	</script>
+</body>
+</html>
